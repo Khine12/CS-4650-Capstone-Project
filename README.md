@@ -52,7 +52,17 @@ Validation AUC uses `make_split`. "Would rank" compares with the final private l
 |---|---|---|---|---|---|---|
 | 2026-11-26 | Khine | Logistic regression, ratings as numbers | 0.92064 | | 3,669 | not submitted |
 | 2026-11-26 | Khine | Logistic regression, ratings one-hot | 0.94767 | | 3,535 | `submissions/baseline_logreg_onehot.csv` |
-| 2026-11-26 | Khine | Gradient boosting (HistGradientBoosting) | 0.95758 | | 3,364 | `submissions/baseline_gradient_boosting.csv` |
+| 2026-11-26 | Khine | Gradient boosting (HistGradientBoosting) | 0.95758 | public 0.95761 / private 0.95908 | ~2,860 / 3,715 | `submissions/baseline_gradient_boosting.csv` |
+
+Validation AUC (0.95758) matched the Kaggle public score (0.95761) within 0.00003, so our `make_split` validation is reliable. Use it to test ideas before spending Kaggle submissions. Compare the **private** score with `report/leaderboard_private_2026-11-26.csv` (that file is the private leaderboard).
+
+## Kaggle submission descriptions
+
+Every Kaggle submission description must follow this pattern so we can match scores to models later:
+
+`vN - model, key settings. What changed. Validation AUC X.`
+
+Example: `v2 - Logistic regression, ratings one-hot, scaled. Validation AUC 0.94767.`
 
 ## MapReduce (Topics 4 + 9)
 
@@ -63,8 +73,10 @@ Satisfaction rate per Class × Type of Travel, using [sum, count] so the combine
 
 ## To do
 
-- [ ] Everyone: accept Kaggle rules, download data, run `00_baseline.ipynb`
-- [ ] Khine: upload both baseline CSVs as Late Submissions, fill in the Kaggle score column
+- [ ] Everyone: create a Kaggle account, accept the competition Rules, download the data into `data/`, run `00_baseline.ipynb`
+- [x] Khine: submit gradient boosting baseline (private 0.95908)
+- [ ] Khine: submit logistic regression baseline (`baseline_logreg_onehot.csv`)
+- [ ] Khine: email professor to confirm a closed competition with late submissions is OK
 - [ ] A: try new features in `src/clean.py` (total delay, average rating, count of 0 ratings, age groups)
 - [ ] B: tune logistic regression (C value); random forest; tune boosting
 - [ ] C: K-means on passengers (use a 20k-row sample for silhouette), describe each cluster; charts for the report

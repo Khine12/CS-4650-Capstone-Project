@@ -24,6 +24,12 @@ Kaggle Playground Series S6E10, Predicting Airline Satisfaction. Synthetic data 
 
 ## 5. Comparison with other submissions  (Khine)
 - Late-submission scores from Kaggle (screenshots)
-- Rank we would have had out of 3,715 teams; best 0.96318, median 0.96081
+- First late submission (gradient boosting): public 0.95761, private 0.95908
+- Would rank about 2,860 of 3,715 teams on the final private leaderboard (best 0.96318, median 0.96081)
+- Validation AUC matched public score within 0.00003
+- Include a screenshot of the Kaggle Submissions page (to be added to `figures/`)
 
 ## 6. What worked, what didn't  (everyone, one paragraph each)
+
+## AI assistance (check course policy)
+Starter code (cleaning module, baseline notebook, MapReduce job) was created with AI assistance; the team reviewed, ran, and extended it.
