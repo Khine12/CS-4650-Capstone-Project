@@ -1,0 +1,13 @@
+name: capstone
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11          # keep 3.11: mrjob breaks on Python 3.13
+  - pandas
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyter
+  - mrjob
+  - kaggle

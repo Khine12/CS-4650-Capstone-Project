@@ -1,0 +1,6 @@
+"Business | Business travel"	{"passengers": 338272, "satisfied_rate": 0.7325}
+"Business | Personal Travel"	{"passengers": 3940, "satisfied_rate": 0.1119}
+"Eco | Business travel"	{"passengers": 141612, "satisfied_rate": 0.26}
+"Eco | Personal Travel"	{"passengers": 185792, "satisfied_rate": 0.0971}
+"Eco Plus | Business travel"	{"passengers": 17557, "satisfied_rate": 0.3464}
+"Eco Plus | Personal Travel"	{"passengers": 12462, "satisfied_rate": 0.0954}

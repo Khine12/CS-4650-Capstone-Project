@@ -1,0 +1,7 @@
+# Kaggle data: download it yourself (competition rules don't allow re-sharing)
+data/*
+!data/.gitkeep
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.DS_Store
