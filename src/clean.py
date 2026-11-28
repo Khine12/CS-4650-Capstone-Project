@@ -7,7 +7,7 @@ Everyone imports from here so every model sees exactly the same data:
 Facts about the raw data (checked on train.csv, 699,635 rows):
   * Target `satisfaction` is True/False (44.4% True). Score = ROC AUC.
   * Only missing values: 292 in `Arrival Delay in Minutes` (130 in test).
-  * 14 service ratings on a 0-5 scale. 0 means "not rated / not applicable",
+  * 13 service ratings on a 0-5 scale. 0 means "not rated / not applicable",
     not "terrible", so treating ratings as categories helps linear models.
   * Delays and flight distance are heavily right-skewed -> log1p.
   * 4 text columns: Gender, Customer Type, Type of Travel, Class.
