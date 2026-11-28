@@ -5,7 +5,7 @@ Full names of all four members. One Canvas submission for the group.
 
 ## 2. Dataset / competition
 Kaggle Playground Series S6E10, Predicting Airline Satisfaction. Synthetic data generated from a real airline survey dataset.
-699,635 training rows, 299,844 test rows, 22 features. Binary target, scored by ROC AUC. Ran Sep 30 – Oct 31, 2026; we used Late Submission.
+699,635 training rows, 299,844 test rows, 21 features. Binary target, scored by ROC AUC. Ran Sep 30 – Oct 31, 2026; we used Late Submission.
 
 ## 3. Approach and cleaning  (Teammate A)
 - Filled 292 missing arrival delays with departure delay (correlation 0.84)

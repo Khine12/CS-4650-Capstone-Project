@@ -39,9 +39,9 @@ Kaggle Playground Series S6E10: https://www.kaggle.com/competitions/playground-s
 
 ## Data facts (from train.csv)
 
-- 699,635 training rows, 299,844 test rows, 22 features, no duplicate rows.
+- 699,635 training rows, 299,844 test rows, 21 features, no duplicate rows.
 - 44.4% satisfied. Only missing values: 292 in `Arrival Delay in Minutes` (filled with departure delay; the two correlate at 0.84).
-- 14 service ratings on 0–5, where **0 = not applicable**. Strongest single signal: `Online boarding` (correlation 0.56).
+- 13 service ratings on 0–5, where **0 = not applicable**. Strongest single signal: `Online boarding` (correlation 0.56).
 - Satisfaction by group: Business class 72.5% vs Eco 16.8%; business travel 58.4% vs personal 9.7%; loyal customers 49.5% vs disloyal 20.1%.
 
 ## Results log
