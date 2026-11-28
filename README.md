@@ -53,8 +53,14 @@ Validation AUC uses `make_split`. "Would rank" compares with the final private l
 | 2026-11-26 | Khine | Logistic regression, ratings as numbers | 0.92064 | | 3,669 | not submitted |
 | 2026-11-26 | Khine | Logistic regression, ratings one-hot | 0.94767 | | 3,535 | `submissions/baseline_logreg_onehot.csv` |
 | 2026-11-26 | Khine | Gradient boosting (HistGradientBoosting) | 0.95758 | public 0.95761 / private 0.95908 | ~2,860 / 3,715 | `submissions/baseline_gradient_boosting.csv` |
+| 2026-11-27 | Khine | Gradient boosting + new features + tuning (`01_khine_features_boosting`) | 0.95745 | | 3,371 | not submitted (worse than baseline) |
+| 2026-11-27 | Khine | CatBoost alone (`02_khine_catboost_lightgbm`) | 0.95755 | | 3,367 | not submitted |
+| 2026-11-27 | Khine | LightGBM alone (`02_khine_catboost_lightgbm`) | 0.95819 | | 3,279 | not submitted |
+| 2026-11-27 | Khine | v3 ensemble: 0.7 LightGBM + 0.2 CatBoost + 0.1 HistGB, rank average | 0.95824 | public 0.95841 / private 0.95957 | ~2,190 / 3,715 | `submissions/v3_ensemble.csv` |
 
 Validation AUC (0.95758) matched the Kaggle public score (0.95761) within 0.00003, so our `make_split` validation is reliable. Use it to test ideas before spending Kaggle submissions. Compare the **private** score with `report/leaderboard_private_2026-11-26.csv` (that file is the private leaderboard).
+
+v3 ensemble: validation 0.95824 vs public 0.95841 (within 0.00017). Private 0.95957 moves us from ~2,860 to ~2,190 of 3,715 (top 59%).
 
 ## Kaggle submission descriptions
 
@@ -77,7 +83,8 @@ Satisfaction rate per Class × Type of Travel, using [sum, count] so the combine
 - [x] Khine: submit gradient boosting baseline (private 0.95908)
 - [ ] Khine: submit logistic regression baseline (`baseline_logreg_onehot.csv`)
 - [ ] Khine: email professor to confirm a closed competition with late submissions is OK
-- [ ] A: try new features in `src/clean.py` (total delay, average rating, count of 0 ratings, age groups)
-- [ ] B: tune logistic regression (C value); random forest; tune boosting
+- [ ] A: try new features in `src/clean.py`. Already tried in `01_khine_features_boosting` with no gain: total delay, average/min rating, count of 0 ratings. Still open: age groups, other ideas
+- [x] Khine: submit v3 ensemble (private 0.95957, ~2,190 / 3,715)
+- [ ] B: tune logistic regression (C value); random forest. Boosting tuning, CatBoost and LightGBM already done in notebooks 01 and 02; LightGBM is the strongest single model so far
 - [ ] C: K-means on passengers (use a 20k-row sample for silhouette), describe each cluster; charts for the report
 - [ ] All: report sections (see `report/REPORT_OUTLINE.md`)
