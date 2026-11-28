@@ -10,18 +10,38 @@ Kaggle Playground Series S6E10: https://www.kaggle.com/competitions/playground-s
 
 | Name | GitHub | Role |
 |---|---|---|
-| Khine Zar Hein | | Lead: repo, MapReduce, Kaggle submissions, report |
-| _Teammate A_ | | Cleaning + feature ideas (`src/clean.py`) |
-| _Teammate B_ | | Logistic regression + random forest / boosting |
-| _Teammate C_ | | Clustering + charts |
+| Khine Zar Hein | | Lead: repo, cleaning, MapReduce, boosting/LightGBM/CatBoost ensemble, clustering, Kaggle submissions, report |
+| Devin Davis | [devinddavis](https://github.com/devinddavis) | Linear regression (`04_devin_linear_regression.ipynb`) |
+| Wesley Trinh | | Logistic regression: tuning + what the coefficients say (`05_wesley_logistic_regression.ipynb`) |
+| Jacqueline Ninh | | Report: review every section against the notebooks, write sections 2–3, final formatting |
+
+## Course topics covered
+
+The Canvas instructions list four topics. Where each one is in this repo:
+
+| Topic | Where | Status |
+|---|---|---|
+| 1. Map/Reduce | `src/mr_satisfaction_rate.py` → `report/mapreduce_satisfaction_by_class_travel.txt` | done |
+| 2. Linear regression | `notebooks/04_devin_linear_regression.ipynb` (predict arrival delay from departure delay; checks the missing-value fill) | to do (Devin) |
+| 3. Logistic regression | `notebooks/00_baseline.ipynb` (0.921 → 0.948 with one-hot ratings); tuning in `05_wesley_logistic_regression.ipynb` | baseline done, tuning to do (Wesley) |
+| 4. Clustering | `notebooks/03_khine_clustering.ipynb` (K-means, k = 7) | done |
+| Beyond the topics | `00`–`02`: gradient boosting, LightGBM, CatBoost, ensemble (best Kaggle score) | done |
 
 ## Setup (once)
 
-1. Install Miniconda, then from this folder:
+1. Install the Python packages. **Either** Miniconda:
    ```bash
    conda env create -f environment.yml
    conda activate capstone
    ```
+   **or**, with Python 3.11 already installed (Windows PowerShell, from this folder):
+   ```powershell
+   python -m venv .venv
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   .\.venv\Scripts\Activate.ps1
+   pip install pandas numpy scikit-learn matplotlib ipykernel lightgbm catboost mrjob
+   ```
+   In VS Code, pick the `.venv` kernel when you open a notebook.
 2. On Kaggle, open the competition, accept the **Rules**, and download `train.csv`, `test.csv`, `sample_submission.csv` from the **Data** tab into `data/`. The data is not in git.
 3. Run `notebooks/00_baseline.ipynb` top to bottom to check everything works.
 
@@ -41,12 +61,12 @@ Kaggle Playground Series S6E10: https://www.kaggle.com/competitions/playground-s
 
 - 699,635 training rows, 299,844 test rows, 21 features, no duplicate rows.
 - 44.4% satisfied. Only missing values: 292 in `Arrival Delay in Minutes` (filled with departure delay; the two correlate at 0.84).
-- 13 service ratings on 0–5, where **0 = not applicable**. Strongest single signal: `Online boarding` (correlation 0.56).
+- 13 service ratings on 0–5, where **0 = not applicable** (`Baggage handling` is 1–5 only). Strongest single signal: `Online boarding` (correlation 0.56).
 - Satisfaction by group: Business class 72.5% vs Eco 16.8%; business travel 58.4% vs personal 9.7%; loyal customers 49.5% vs disloyal 20.1%.
 
 ## Results log
 
-Validation AUC uses `make_split`. "Would rank" compares with the final private leaderboard (3,715 valid teams; best 0.96318, median 0.96081).
+Validation AUC uses `make_split`. "Would rank" compares with the final private leaderboard (3,715 valid teams; best 0.96318, median 0.96081). For submitted models it uses the Kaggle **private** score (written `~2,190 / 3,715`); for the others it uses validation AUC, which runs about 0.0015 below private, so those ranks look worse than they would be.
 
 | Date | Who | Model | Validation AUC | Kaggle late-submission score | Would rank | File |
 |---|---|---|---|---|---|---|
@@ -79,12 +99,37 @@ Satisfaction rate per Class × Type of Travel, using [sum, count] so the combine
 
 ## To do
 
-- [ ] Everyone: create a Kaggle account, accept the competition Rules, download the data into `data/`, run `00_baseline.ipynb`
+Done:
+- [x] Khine: cleaning module, MapReduce job, baseline notebook (`00`)
 - [x] Khine: submit gradient boosting baseline (private 0.95908)
-- [ ] Khine: submit logistic regression baseline (`baseline_logreg_onehot.csv`)
-- [ ] Khine: email professor to confirm a closed competition with late submissions is OK
-- [ ] A: try new features in `src/clean.py`. Already tried in `01_khine_features_boosting` with no gain: total delay, average/min rating, count of 0 ratings. Still open: age groups, other ideas
+- [x] Khine: features + tuning experiment (`01`, no gain), LightGBM/CatBoost ensemble (`02`)
 - [x] Khine: submit v3 ensemble (private 0.95957, ~2,190 / 3,715)
-- [ ] B: tune logistic regression (C value); random forest. Boosting tuning, CatBoost and LightGBM already done in notebooks 01 and 02; LightGBM is the strongest single model so far
-- [ ] C: K-means on passengers (use a 20k-row sample for silhouette), describe each cluster; charts for the report
-- [ ] All: report sections (see `report/REPORT_OUTLINE.md`)
+- [x] Khine: K-means clustering + charts (`03`)
+
+Everyone (first, ~30 min):
+- [ ] Send Khine your GitHub username and accept the repo invite
+- [ ] Create a Kaggle account, accept the competition Rules, download the data into `data/`, run `00_baseline.ipynb`
+
+Devin, linear regression (`notebooks/04_devin_linear_regression.ipynb`):
+- [ ] Predict `Arrival Delay in Minutes` from `Departure Delay in Minutes` with linear regression (scikit-learn `LinearRegression`), using rows where both are known
+- [ ] Report slope, intercept, R² and RMSE on a held-out 20%; scatter plot with the fitted line saved to `report/figures/`
+- [ ] Say whether this supports our missing-value fill (copying departure delay into the 292 gaps), or whether the fitted line would be better
+- [ ] One paragraph for report section 6
+
+Wesley, logistic regression (`notebooks/05_wesley_logistic_regression.ipynb`):
+- [ ] Start from model B in `00_baseline.ipynb` (ratings one-hot, scaled, validation AUC 0.94767)
+- [ ] Try C = 0.01, 0.1, 1, 10 and L1 vs L2; table of validation AUC with `make_split`
+- [ ] Chart of the 15 largest coefficients: which answers push satisfaction up or down
+- [ ] Upload the best one as a Late Submission (`v4 - ...` description pattern), add it to the results log
+- [ ] One paragraph for report section 6
+
+Jacqueline, report:
+- [ ] Read `report/REPORT.md` (draft) next to the notebooks; fix anything unclear or wrong
+- [ ] Write sections 2 and 3 in your own words; check every figure path works
+- [ ] Final formatting (Word/PDF) once Devin's and Wesley's parts are in
+- [ ] One paragraph for report section 6
+
+Khine:
+- [ ] Email professor to confirm a closed competition with late submissions is OK
+- [ ] Submit logistic regression baseline (`baseline_logreg_onehot.csv`), or leave it to Wesley's v4
+- [ ] Merge PRs; submit the final report on Canvas (one submission for the group, target Thu Dec 10)
