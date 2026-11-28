@@ -53,7 +53,7 @@ The Canvas instructions list four topics. Where each one is in this repo:
   from src.clean import load_data, make_features, make_split, save_submission
   ```
 - **Always use `make_split`** (80/20, `random_state=42`, stratified) for validation AUC.
-- **Branch → pull request → one teammate approves → merge.** Never push to `main` directly.
+- **Commit straight to `main`.** Run `git pull` before you start working and again right before `git push`, so you don't overwrite anyone.
 - Changing `src/clean.py` changes everyone's results. Say so in the group chat first.
 - Clear big outputs before committing notebooks.
 
@@ -130,6 +130,5 @@ Jacqueline, report:
 - [ ] One paragraph for report section 6
 
 Khine:
-- [ ] Email professor to confirm a closed competition with late submissions is OK
-- [ ] Submit logistic regression baseline (`baseline_logreg_onehot.csv`), or leave it to Wesley's v4
-- [ ] Merge PRs; submit the final report on Canvas (one submission for the group, target Thu Dec 10)
+- [x] Report draft (`report/REPORT.md`)
+- [ ] Submit the final report on Canvas (one submission for the group, target Thu Dec 10)
